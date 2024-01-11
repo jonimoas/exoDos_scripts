@@ -1,6 +1,8 @@
 # exoDos_scripts
 helper scripts to manage the exodos package
 
+https://www.retro-exo.com/exodos.html
+
 parse.bat reads the directories that run the games and creates a bat file that calls said files. Useful if the frontend
 is using single files for the games
 
