@@ -45,20 +45,16 @@ for game in root.findall('./Game'):
                 response = requests.get('https://images.launchbox-app.com/' + filename)
                 open('images\\' + finalFilename, "wb").write(response.content)
             emustationgame['image'] = './images/' + finalFilename
+        emustationgame['genre'] = game.find('Genre').text.split(';')[0]
+        emustationgame['path'] = './' + game.find('ApplicationPath').text.split('\\')[-1]
+        emustationgame['desc'] = game.find('Notes').text
+        emustationgame['developer'] = game.find('Developer').text
+        print(dict2xml({'game':emustationgame}))
+        f = open("gamelist.xml", "a", encoding="utf-8")
+        f.write(dict2xml({'game':emustationgame}) + '\n')
+        f.close()
     except Exception as e:
         print(e)
-    emustationgame['path'] = './' + game.find('ApplicationPath').text.split('\\')[-1]
-    emustationgame['desc'] = game.find('Notes').text
-    emustationgame['developer'] = game.find('Developer').text
-    try:
-        emustationgame['genre'] = game.find('Genre').text.split(';')[0]
-    except:
-        None
-    print(dict2xml({'game':emustationgame}))
-    f = open("gamelist.xml", "a", encoding="utf-8")
-    f.write(dict2xml({'game':emustationgame}) + '\n')
-    f.close()
-
 f = open("gamelist.xml", "a")
 f.write('</gameList>')
 f.close()
